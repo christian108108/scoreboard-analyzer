@@ -25,7 +25,7 @@ namespace Scoreboard_Analyzer.Sandbox
             var filename = DateTime.Now.ToString("s").Replace(':', '-');
 
             // save screenshot in current directory
-            ss.SaveAsFile($"{filename}.png", ScreenshotImageFormat.Png);
+            ss.SaveAsFile($"screenshots/{filename}.png", ScreenshotImageFormat.Png);
         }
     }
 }
