@@ -6,4 +6,8 @@
     <RootNamespace>Scoreboard_Analyzer.Sandbox</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+  </ItemGroup>
+
 </Project>
