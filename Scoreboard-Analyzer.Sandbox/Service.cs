@@ -6,9 +6,9 @@ namespace Scoreboard_Analyzer.Sandbox
 {
     public class Service
     {
-        public string Name;
+        public readonly string Name;
 
-        public int XValue;
+        public readonly int XValue;
 
         public List<bool> UptimeHistory;
 

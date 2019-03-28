@@ -5,9 +5,9 @@ namespace Scoreboard_Analyzer.Sandbox
 {
     public class School
     {
-        public string Name;
+        public readonly string Name;
 
-        public int YValue;
+        public readonly int YValue;
 
         public List<Service> Services;
 
