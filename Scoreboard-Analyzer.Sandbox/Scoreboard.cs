@@ -41,23 +41,23 @@ namespace Scoreboard_Analyzer.Sandbox
             }
         }
 
+        /// <summary>
+        /// Updates scoreboard with proper uptime information
+        /// </summary>
+        /// <param name="_screenshot">screenshot of the scoreboard</param>
         public void ServiceCheck(Bitmap _screenshot)
         {
+            // loop through each school
             foreach(var school in this.Schools)
             {
+                // loop through each service for each school
                 foreach(var service in school.Services)
                 {
+                    // grab the pixel from the specific school and service
                     var pixel = _screenshot.GetPixel(service.XValue, school.YValue);
-                    // if the service is up (green-ish), then update the history
-                    if(pixel.G > 100)
-                    {
-                        service.UptimeHistory.Add(true);
-                    }
-                    // if the service is down, update the history with false
-                    else
-                    {
-                        service.UptimeHistory.Add(false);
-                    }
+                    
+                    // if the service is up (green-ish), then update the history with a true. False if it's not green.
+                    service.UptimeHistory.Add(pixel.G > 100);
                 }
             }
         }

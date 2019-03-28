@@ -25,13 +25,13 @@ namespace Scoreboard_Analyzer.Sandbox
 
             Scoreboard scoreboard = new Scoreboard(schoolNames, serviceNames, FIRST_COL_X, LAST_COL_X, FIRST_ROW_Y, LAST_ROW_Y);
 
+            // loop through the 10 example screenshots
             for(int i=0; i<10; i++)
             {
                 Bitmap scoreboardBitmap = new Bitmap($"screenshots/example{i}.jpg");
                 scoreboard.ServiceCheck(scoreboardBitmap);
             }
 
-            // scoreboardBitmap.Save("screenshots/tada.bmp");
 
         }
 
