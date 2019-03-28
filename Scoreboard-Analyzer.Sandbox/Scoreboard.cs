@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -47,6 +48,9 @@ namespace Scoreboard_Analyzer.Sandbox
         /// <param name="_screenshot">screenshot of the scoreboard</param>
         public void ServiceCheck(Bitmap _screenshot)
         {
+            // TESTING. PLS REPLACE LATER!!!
+            DateTime timeOfServiceCheck = DateTime.Now;
+
             // loop through each school
             foreach(var school in this.Schools)
             {
@@ -56,10 +60,20 @@ namespace Scoreboard_Analyzer.Sandbox
                     // grab the pixel from the specific school and service
                     var pixel = _screenshot.GetPixel(service.XValue, school.YValue);
                     
-                    // if the service is up (green-ish), then update the history with a true. False if it's not green.
-                    service.UptimeHistory.Add(pixel.G > 100);
+                    // if the service is up, then update the history with a true. False if it's not green.
+                    service.ServiceCheckHistory.Add(new ServiceCheck(timeOfServiceCheck, IsGreen(pixel)));
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks to see if pixel is green-ish
+        /// </summary>
+        /// <param name="_pixel">Pixel from bitmap</param>
+        /// <returns>Returns true if pixel is green. False if pixel is not green</returns>
+        public static bool IsGreen(Color _pixel)
+        {
+            return _pixel.G > 100;
         }
     }
 }
