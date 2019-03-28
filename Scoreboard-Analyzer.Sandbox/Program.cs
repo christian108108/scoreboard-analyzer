@@ -20,38 +20,16 @@ namespace Scoreboard_Analyzer.Sandbox
             int LAST_ROW_Y = 760;
             #endregion
 
-            List<string> schoolNames = new List<string>();
-
-            List<string> serviceNames = new List<string>();
-
-            // take user input for school and service names
-            // Hit [ENTER] when dones
-            string input;
-            Console.WriteLine("Enter the school names in order.");
-            while(true)
-            {
-                input = Console.ReadLine();
-                if(String.IsNullOrWhiteSpace(input))
-                {
-                    break;
-                }
-                schoolNames.Add(input);
-            }
-
-            Console.WriteLine("Enter the service names in order.");
-            while(true)
-            {
-                input = Console.ReadLine();
-                if(String.IsNullOrWhiteSpace(input))
-                {
-                    break;
-                }
-                serviceNames.Add(input);
-            }
+            List<string> schoolNames = AskUserForSchoolNames();
+            List<string> serviceNames = AskUserForServiceNames();
 
             Scoreboard scoreboard = new Scoreboard(schoolNames, serviceNames, FIRST_COL_X, LAST_COL_X, FIRST_ROW_Y, LAST_ROW_Y);
 
-            Bitmap scoreboardBitmap = new Bitmap($"screenshots/example9.jpg");
+            for(int i=0; i<10; i++)
+            {
+                Bitmap scoreboardBitmap = new Bitmap($"screenshots/example{i}.jpg");
+                scoreboard.ServiceCheck(scoreboardBitmap);
+            }
 
             // scoreboardBitmap.Save("screenshots/tada.bmp");
 
@@ -92,6 +70,48 @@ namespace Scoreboard_Analyzer.Sandbox
 
             // save screenshot in specified output folder directory
             ss.SaveAsFile($"{outputFolder}/{filename}.png", ScreenshotImageFormat.Png);
+        }
+
+        public static List<string> AskUserForSchoolNames()
+        {
+            List<string> schoolNames = new List<string>();
+
+            // take user input for school and service names
+            // Hit [ENTER] when done
+            string input;
+            Console.WriteLine("Enter the school names in order. Hit [ENTER] when done.");
+            while(true)
+            {
+                input = Console.ReadLine();
+                if(String.IsNullOrWhiteSpace(input))
+                {
+                    break;
+                }
+                schoolNames.Add(input);
+            }
+
+            return schoolNames;
+        }
+
+        public static List<string> AskUserForServiceNames()
+        {
+            List<string> serviceNames = new List<string>();
+
+            // take user input for service names
+            // Hit [ENTER] when dones
+            string input;
+            Console.WriteLine("Enter the service names in order. Hit [ENTER] when done.");
+            while(true)
+            {
+                input = Console.ReadLine();
+                if(String.IsNullOrWhiteSpace(input))
+                {
+                    break;
+                }
+                serviceNames.Add(input);
+            }
+
+            return serviceNames;
         }
     }
 }
