@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Scoreboard_Analyzer.Sandbox
 {
@@ -7,8 +8,10 @@ namespace Scoreboard_Analyzer.Sandbox
     {
         public readonly string Name;
 
+        [JsonIgnore]
         public readonly int XValue;
 
+        [JsonIgnore]
         public List<ServiceCheck> ServiceCheckHistory;
 
         public Service(string _name, int _xValue)
