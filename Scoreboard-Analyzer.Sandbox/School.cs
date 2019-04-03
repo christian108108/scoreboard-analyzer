@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -30,7 +31,7 @@ namespace Scoreboard_Analyzer.Sandbox
                 {
                     uptime.Add(service.Uptime);
                 }
-                return uptime.Average();
+                return Decimal.Round(uptime.Average()*100, 2);
             }
         }
 
