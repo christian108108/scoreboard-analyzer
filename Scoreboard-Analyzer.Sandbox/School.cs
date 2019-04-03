@@ -18,25 +18,31 @@ namespace Scoreboard_Analyzer.Sandbox
             this.Services = _services;
         }
 
-        public decimal GetTotalUptime()
+        public decimal TotalUptime
         {
-            List<decimal> uptime = new List<decimal>();
-            foreach (var service in Services)
+            get
             {
-                uptime.Add(service.GetUptime());
+                List<decimal> uptime = new List<decimal>();
+                foreach (var service in Services)
+                {
+                    uptime.Add(service.Uptime);
+                }
+                return uptime.Average();
             }
-            return uptime.Average();
         }
 
-        public int GetTotalViolations(int tolerance)
+        public int TotalViolations
         {
-            // count all the violations from all the services in this team
-            int count = 0;
-            foreach (var service in Services)
+            get
             {
-                count += service.GetViolations(tolerance);
+                // count all the violations from all the services in this team
+                int count = 0;
+                foreach (var service in Services)
+                {
+                    count += service.Violations;
+                }
+                return count;
             }
-            return count;
         }
     }
 }

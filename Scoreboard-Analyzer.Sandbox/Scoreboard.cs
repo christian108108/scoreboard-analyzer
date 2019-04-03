@@ -29,15 +29,17 @@ namespace Scoreboard_Analyzer.Sandbox
                 serviceCoordsX.Add(x);
             }
 
-            List<Service> _services = new List<Service>();
-            for(int j=0; j<_serviceNames.Count; j++)
-            {
-                Service _service = new Service(_serviceNames[j], serviceCoordsX[j]);
-                _services.Add(_service);
-            }
 
             for(int i=0; i<_schoolNames.Count; i++)
             {
+                // give schools their unique service history
+                List<Service> _services = new List<Service>();
+                for(int j=0; j<_serviceNames.Count; j++)
+                {
+                    Service _service = new Service(_serviceNames[j], serviceCoordsX[j]);
+                    _services.Add(_service);
+                }
+
                 School _school = new School(_schoolNames[i], schoolCoordsY[i], _services);
                 this.Schools.Add(_school);
             }

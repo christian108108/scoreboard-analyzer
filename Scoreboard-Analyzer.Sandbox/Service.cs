@@ -18,49 +18,55 @@ namespace Scoreboard_Analyzer.Sandbox
             this.ServiceCheckHistory = new List<ServiceCheck>();
         }
 
-        public decimal GetUptime()
+        public decimal Uptime
         {
-            // count how many times the service has been up in its history
-            int upCount = 0;
-            foreach(var serviceCheck in ServiceCheckHistory)
+            get
             {
-                if(serviceCheck.Status)
+                // count how many times the service has been up in its history
+                int upCount = 0;
+                foreach (var serviceCheck in ServiceCheckHistory)
                 {
-                    upCount++;
+                    if (serviceCheck.Status)
+                    {
+                        upCount++;
+                    }
                 }
-            }
 
-            // calculate a percentage of uptime
-            return (decimal)upCount / (decimal)ServiceCheckHistory.Count;
+                // calculate a percentage of uptime
+                return (decimal)upCount / (decimal)ServiceCheckHistory.Count;
+            }
         }
 
-        public int GetViolations(int tolerance)
+        public int Violations
         {
-            // how many checks it takes to equal 1 SLA violation
-            int violations = 0;
-            int downtimeCounter = 0;
-            foreach (var check in this.ServiceCheckHistory)
+            get
             {
-                // if service is down in this check, increment the counter
-                if (!check.Status)
+                // how many checks it takes to equal 1 SLA violation
+                int violations = 0;
+                int downtimeCounter = 0;
+                foreach (var check in this.ServiceCheckHistory)
                 {
-                    downtimeCounter++;
-                }
+                    // if service is down in this check, increment the counter
+                    if (!check.Status)
+                    {
+                        downtimeCounter++;
+                    }
 
-                // if the service is up, reset the counter
-                else
-                {
-                    downtimeCounter = 0;
-                }
+                    // if the service is up, reset the counter
+                    else
+                    {
+                        downtimeCounter = 0;
+                    }
 
-                // if the service has been down 3 times in a row, then fail give the service a violation
-                if (downtimeCounter == tolerance)
-                {
-                    violations++;
-                    downtimeCounter = 0;
+                    // if the service has been down 3 times in a row, then fail give the service a violation
+                    if (downtimeCounter == 3)
+                    {
+                        violations++;
+                        downtimeCounter = 0;
+                    }
                 }
+                return violations;
             }
-            return violations;
         }
     }
 }
