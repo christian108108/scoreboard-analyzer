@@ -40,7 +40,9 @@ namespace Scoreboard_Analyzer.Sandbox
 
             string output = JsonConvert.SerializeObject(scoreboard, Formatting.Indented);
 
+            Console.WriteLine($"Results as of {DateTime.Now}");
             Console.WriteLine(output);
+
             // Write the string array to a new file named "WriteLines.txt".
             using (StreamWriter outputFile = new StreamWriter("results.txt"))
             {
