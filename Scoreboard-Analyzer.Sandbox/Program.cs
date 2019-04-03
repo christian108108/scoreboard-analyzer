@@ -12,24 +12,40 @@ namespace Scoreboard_Analyzer.Sandbox
         {
             #region Dimensions
             // x values of the first and last rows
-            int FIRST_COL_X = 83;
-            int LAST_COL_X = 689;
+            int FIRST_COL_X = 146;
+            int LAST_COL_X = 957;
 
             // y value of the first and last columns
-            int FIRST_ROW_Y = 155;
-            int LAST_ROW_Y = 760;
+            int FIRST_ROW_Y = 125;
+            int LAST_ROW_Y = 505;
             #endregion
 
-            List<string> schoolNames = AskUserForSchoolNames();
-            List<string> serviceNames = AskUserForServiceNames();
+            // ask users for school and service names via stdin
+            // List<string> schoolNames = AskUserForSchoolNames();
+            // List<string> schoolNames = AskUserForServiceNames();
+            
+            // just using this for easy debugging
+            string[] schoolNames = {"ucf", "uf", "ksu", "fsu", "usf", "unf", "usa", "um"};
+            string[] serviceNames = {"http", "ftp", "iis", "ssh", "imap", "pop3", "ad", "ecom"};
 
+            // create scoreboard object from given information
             Scoreboard scoreboard = new Scoreboard(schoolNames, serviceNames, FIRST_COL_X, LAST_COL_X, FIRST_ROW_Y, LAST_ROW_Y);
 
             // loop through the 10 example screenshots
             for(int i=0; i<10; i++)
             {
-                Bitmap scoreboardBitmap = new Bitmap($"screenshots/example{i}.jpg");
-                scoreboard.ServiceCheck(scoreboardBitmap);
+                // get the names of current screenshot
+                string screenshotFileName = $"screenshots/example{i}.jpg";
+
+                // process service check and add to scoreboard history
+                scoreboard.ProcessServiceCheck(screenshotFileName);
+
+                // after adding all the information into the scoreboard, then check the uptime and violations
+                foreach(var school in scoreboard.Schools)
+                {
+                    var schoolUptime = school.GetTotalUptime();
+                    var schoolViolations = school.GetTotalViolations(tolerance: 3);
+                }
             }
 
 
