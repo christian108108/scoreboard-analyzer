@@ -31,13 +31,12 @@ namespace Scoreboard_Analyzer.Sandbox
             }
 
             // calculate a percentage of uptime
-            return upCount / ServiceCheckHistory.Count;
+            return (decimal)upCount / (decimal)ServiceCheckHistory.Count;
         }
 
-        public int GetViolations()
+        public int GetViolations(int tolerance)
         {
             // how many checks it takes to equal 1 SLA violation
-            int tolerance = 3;
             int violations = 0;
             int downtimeCounter = 0;
             foreach (var check in this.ServiceCheckHistory)

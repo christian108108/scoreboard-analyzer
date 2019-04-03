@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace Scoreboard_Analyzer.Sandbox
 {
@@ -45,11 +46,14 @@ namespace Scoreboard_Analyzer.Sandbox
         /// <summary>
         /// Updates scoreboard with proper uptime information
         /// </summary>
-        /// <param name="_screenshot">screenshot of the scoreboard</param>
-        public void ServiceCheck(Bitmap _screenshot)
+        /// <param name="_filename">path of screenshot</param>
+        public void ProcessServiceCheck(string _filename)
         {
-            // TESTING. PLS REPLACE LATER!!!
-            DateTime timeOfServiceCheck = DateTime.Now;
+            // Make a record of when the service check occurred
+            DateTime timeOfServiceCheck = File.GetCreationTime(_filename);
+
+            // load the scoreboard as bitmap so we can scan the pixels
+            Bitmap scoreboardBitmap = new Bitmap(_filename);
 
             // loop through each school
             foreach(var school in this.Schools)
@@ -58,7 +62,7 @@ namespace Scoreboard_Analyzer.Sandbox
                 foreach(var service in school.Services)
                 {
                     // grab the pixel from the specific school and service
-                    var pixel = _screenshot.GetPixel(service.XValue, school.YValue);
+                    var pixel = scoreboardBitmap.GetPixel(service.XValue, school.YValue);
                     
                     // if the service is up, then update the history with a true. False if it's not green.
                     service.ServiceCheckHistory.Add(new ServiceCheck(timeOfServiceCheck, IsGreen(pixel)));
@@ -73,7 +77,7 @@ namespace Scoreboard_Analyzer.Sandbox
         /// <returns>Returns true if pixel is green. False if pixel is not green</returns>
         public static bool IsGreen(Color _pixel)
         {
-            return _pixel.G > 100;
+            return (_pixel.G > 100);
         }
     }
 }

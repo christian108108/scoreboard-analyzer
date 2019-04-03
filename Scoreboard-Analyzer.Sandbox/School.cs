@@ -28,13 +28,13 @@ namespace Scoreboard_Analyzer.Sandbox
             return uptime.Average();
         }
 
-        public int GetTotalViolations()
+        public int GetTotalViolations(int tolerance)
         {
             // count all the violations from all the services in this team
             int count = 0;
             foreach (var service in Services)
             {
-                count += service.GetViolations();
+                count += service.GetViolations(tolerance);
             }
             return count;
         }
