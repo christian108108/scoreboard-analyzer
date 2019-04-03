@@ -62,7 +62,7 @@ namespace Scoreboard_Analyzer.Sandbox
                     }
 
                     // if the service has been down 3 times in a row, then fail give the service a violation
-                    if (downtimeCounter == 3)
+                    if (downtimeCounter == 12)
                     {
                         violations++;
                         downtimeCounter = 0;
