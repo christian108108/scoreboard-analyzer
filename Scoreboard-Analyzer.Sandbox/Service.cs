@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -36,7 +37,9 @@ namespace Scoreboard_Analyzer.Sandbox
                 }
 
                 // calculate a percentage of uptime
-                return (decimal)upCount / (decimal)ServiceCheckHistory.Count;
+                var uptime = (decimal)upCount / (decimal)ServiceCheckHistory.Count;
+
+                return Decimal.Round(uptime * 100, 2);
             }
         }
 
@@ -69,6 +72,28 @@ namespace Scoreboard_Analyzer.Sandbox
                     }
                 }
                 return violations;
+            }
+        }
+
+        public int ChecksUntilViolation
+        {
+            get
+            {
+                // count failures from history backwards
+                int failCount = 0;
+                for(int i = this.ServiceCheckHistory.Count; i-- > 0; )
+                {
+                    // if the status is down, count it
+                    if(!this.ServiceCheckHistory[i].Status)
+                    {
+                        failCount++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                return 12-(failCount % 12);
             }
         }
     }

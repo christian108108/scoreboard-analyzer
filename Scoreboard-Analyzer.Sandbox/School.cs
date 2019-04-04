@@ -12,7 +12,7 @@ namespace Scoreboard_Analyzer.Sandbox
         [JsonIgnore]
         public readonly int YValue;
 
-        [JsonIgnore]
+        // [JsonIgnore]
         public List<Service> Services;
 
         public School(string _name, int _yvalue, List<Service> _services)
@@ -31,7 +31,7 @@ namespace Scoreboard_Analyzer.Sandbox
                 {
                     uptime.Add(service.Uptime);
                 }
-                return Decimal.Round(uptime.Average()*100, 2);
+                return Decimal.Round(uptime.Average(), 2);
             }
         }
 
