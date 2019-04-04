@@ -46,6 +46,7 @@ namespace Scoreboard_Analyzer.Sandbox
             // Write the string array to a new file named "WriteLines.txt".
             using (StreamWriter outputFile = new StreamWriter("results.txt"))
             {
+                outputFile.WriteLine($"Results as of {DateTime.Now} EST");
                 outputFile.WriteLine(output);
             }
         }
